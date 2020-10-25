@@ -12,6 +12,6 @@ Friendly neighbourhood github bot
 - ### PR  
   - [ ] welcome comments
     - [ ] special comment for first timers
-  - [ ] add labels on various stages of isses ( awaiting review,requested changes,awaiting merge .. . . )
+  - [ ] add labels on various stages of issues ( awaiting review,requested changes,awaiting merge .. . . )
   - [ ] assign reviewers on a particular string match 
  
