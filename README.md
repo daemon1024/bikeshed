@@ -8,6 +8,7 @@ Friendly neighbourhood github bot
   - [ ] welcome comments
   - [ ] assign issues on a particular string match
   - [ ] add labels on various stages of issues ( unassigned,assigned,has a PR .. . . )
+  - [ ] claim issue
   - [ ] ask updates if no updates for a particular interval
 - ### PR  
   - [ ] welcome comments
