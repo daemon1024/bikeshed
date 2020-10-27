@@ -22,7 +22,8 @@ router.post(
 );
 
 const reply: (data: any) => void = async (data) => {
-  if (data.action == "opened") {
+  if (data.issue && data.action === "opened") {
+    // An issue is created.
     const msg: string = "Thanks for opening an issue.";
     const reqbody = {
       "body": msg,
@@ -30,6 +31,26 @@ const reply: (data: any) => void = async (data) => {
     console.log(msg);
     const ghresp = await fetch(
       data.issue.comments_url,
+      {
+        method: "POST",
+        headers: {
+          "Accept": "application/vnd.github.v3+json",
+          "Authorization": `token ${ghtoken}`,
+        },
+        body: JSON.stringify(reqbody),
+      },
+    );
+    console.log(ghresp);
+  } else if (data.pull_request && data.action === "opened") {
+    // A PR is made.
+    const msg: string =
+      `Thanks for making a PR @${data.pull_request.user.login}`;
+    const reqbody = {
+      "body": msg,
+    };
+    console.log(msg);
+    const ghresp = await fetch(
+      data.pull_request.issue_url,
       {
         method: "POST",
         headers: {
