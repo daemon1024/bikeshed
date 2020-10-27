@@ -13,31 +13,35 @@ router.post(
     try {
       const body = request.body();
       const data = await body.value;
-      console.log(data.action);
-      if (data.action == "opened") {
-        const msg: string = "thanks for opening an issue.";
-        const reqbody = {
-          "body": msg,
-        };
-        console.log(msg);
-        const ghresp = await fetch(
-          `https://api.github.com/repos/daemon1024/demo/issues/${data.issue.number}/comments`,
-          {
-            method: "POST",
-            headers: {
-              "Accept": "application/vnd.github.v3+json",
-              "Authorization": `token ${ghtoken}`,
-            },
-            body: JSON.stringify(reqbody), // body data type must match "Content-Type" header
-          },
-        );
-        console.log(ghresp);
-      }
+      console.log(data);
+      reply(data);
     } catch (error) {
       console.log(error);
     }
   },
 );
+
+const reply: (data: any) => void = async (data) => {
+  if (data.action == "opened") {
+    const msg: string = "Thanks for opening an issue.";
+    const reqbody = {
+      "body": msg,
+    };
+    console.log(msg);
+    const ghresp = await fetch(
+      data.issue.comments_url,
+      {
+        method: "POST",
+        headers: {
+          "Accept": "application/vnd.github.v3+json",
+          "Authorization": `token ${ghtoken}`,
+        },
+        body: JSON.stringify(reqbody),
+      },
+    );
+    console.log(ghresp);
+  }
+};
 
 app.use(router.routes());
 app.use(router.allowedMethods());
