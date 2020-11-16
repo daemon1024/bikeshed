@@ -1,0 +1,9 @@
+{
+    "first_issue": "Thanks for opening your first issue.",
+    "first_pr": "Thanks for making your first pull request.",
+    "issue": "Thanks for opening an issue",
+    "pr": "Thanks for making a pull request",
+    "first_pr_closed": "Grats for your first PR",
+    "pr_closed": "Grats your PR is merged now",
+    "claim_issue": "This issue has been assigned to you, Good Luck!"
+}
