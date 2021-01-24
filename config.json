@@ -3,7 +3,8 @@
     "first_pr": "Thanks for making your first pull request.",
     "issue": "Thanks for opening an issue",
     "pr": "Thanks for making a pull request",
-    "first_pr_closed": "Grats for your first PR",
-    "pr_closed": "Grats your PR is merged now",
+    "pr_closed": "PR Closed",    
+    "first_pr_merged": "Grats for your first PR",
+    "pr_merged": "Grats your PR is merged now",
     "claim_issue": "This issue has been assigned to you, Good Luck!"
 }
