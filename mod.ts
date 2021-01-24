@@ -53,6 +53,36 @@ const createComment = async (url: string, msg: string) =>
     },
   );
 
+const addAssignee = async (url: string, assignee: string) =>
+  await fetch(
+    url + "/assignees",
+    {
+      method: "POST",
+      headers: {
+        "Accept": "application/vnd.github.v3+json",
+        "Authorization": `token ${ghtoken}`,
+      },
+      body: JSON.stringify({
+        "assignees": [assignee],
+      }),
+    },
+  );
+
+const addReaction = async (url: string, reaction: string) =>
+  await fetch(
+    url + "/reactions",
+    {
+      method: "POST",
+      headers: {
+        "Accept": "application/vnd.github.squirrel-girl-preview+json",
+        "Authorization": `token ${ghtoken}`,
+      },
+      body: JSON.stringify({
+        "content": reaction,
+      }),
+    },
+  );
+
 const reply: (data: any) => void = async (data) => {
   if (data.issue && data.action === "opened") {
     // An issue is created.
@@ -92,6 +122,27 @@ const reply: (data: any) => void = async (data) => {
       console.log(msg);
       const ghresp = await createComment(data.pull_request.comments_url, msg);
       console.log(ghresp);
+    }
+  }
+  if (data.action === "created") {
+    if (data.comment.body) {
+      let command = data.comment.body;
+      // does whatever commanded :P
+      command = command.split(" ");
+      switch (command[0]) {
+        // assigns the issue to the specified username
+        case "-assign":
+          let ghresp = command[1][0] == "@" &&
+            await addAssignee(
+              data.issue.url,
+              command[1].substring(1),
+            );
+          ghresp = ghresp ? await addReaction(data.comment.url, "+1") : ghresp;
+          console.log(ghresp);
+          break;
+        default:
+          break;
+      }
     }
   }
 };
