@@ -4,7 +4,7 @@ on: [push, pull_request]
 
 jobs:
   run-tests:
-    name: Code Quality Check
+    name: Check code format
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -12,5 +12,12 @@ jobs:
         uses: denolib/setup-deno@v2
       - name: Check code format
         run: deno fmt --check
+  run-tests:
+    name: Check code lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: setup deno
+        uses: denolib/setup-deno@v2
       - name: Check code linting
         run: deno lint --unstable
