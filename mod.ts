@@ -83,17 +83,33 @@ const addReaction = async (url: string, reaction: string) =>
     },
   );
 
+const addLabel = async (url: string, label: string) =>
+  await fetch(
+    url + "/labels",
+    {
+      method: "POST",
+      headers: {
+        "Accept": "application/vnd.github.squirrel-girl-preview+json",
+        "Authorization": `token ${ghtoken}`,
+      },
+      body: JSON.stringify({
+        "labels": [label],
+      }),
+    },
+  );
+
 const reply: (data: any) => void = async (data) => {
   if (data.issue && data.action === "opened") {
     // An issue is created.
     let msg: string = configs.issue;
     if (data.issue.author_association == "NONE") {
-      //TODO set in config file
       //TODO check if previously created any issue
       msg = configs.first_issue;
     }
     console.log(msg);
-    const ghresp = await createComment(data.issue.comments_url, msg);
+    let ghresp = await createComment(data.issue.comments_url, msg);
+    console.log(ghresp);
+    ghresp = await addLabel(data.issue.url, "awaiting triage");
     console.log(ghresp);
   }
   if (data.pull_request && data.action === "opened") {
@@ -125,19 +141,27 @@ const reply: (data: any) => void = async (data) => {
     }
   }
   if (data.action === "created") {
-    if (data.comment.body) {
+    if (data.comment?.body) {
       let command = data.comment.body;
       // does whatever commanded :P
       command = command.split(" ");
+      let ghresp;
       switch (command[0]) {
         // assigns the issue to the specified username
         case "-assign":
-          let ghresp = command[1][0] == "@" &&
+          ghresp = command[1][0] == "@" &&
             await addAssignee(
               data.issue.url,
               command[1].substring(1),
             );
           ghresp = ghresp ? await addReaction(data.comment.url, "+1") : ghresp;
+          console.log(ghresp);
+          break;
+        case "-addlabel":
+          ghresp = await addLabel(
+            data.issue.url,
+            command[1].substring(1),
+          );
           console.log(ghresp);
           break;
         default:
