@@ -1,0 +1,22 @@
+name: CI
+
+on:
+  push:
+    # Run for any pushs on master
+    branches:
+      - master
+  # Run tests for any PRs.
+  pull_request:
+
+jobs:
+  run-tests:
+    name: Code Quality Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: setup deno
+        uses: denolib/setup-deno@v2
+      - name: Check code format
+        run: deno fmt --check
+      - name: Check code linting
+        run: deno lint --unstable
