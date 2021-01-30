@@ -98,6 +98,21 @@ const addLabel = async (url: string, label: string) =>
     },
   );
 
+const addReviewer = async (url: string, label: string) =>
+  await fetch(
+    url + "/requested_reviewers",
+    {
+      method: "POST",
+      headers: {
+        "Accept": "application/vnd.github.squirrel-girl-preview+json",
+        "Authorization": `token ${ghtoken}`,
+      },
+      body: JSON.stringify({
+        "reviewers": [label],
+      }),
+    },
+  );
+
 const reply: (data: any) => void = async (data) => {
   if (data.issue && data.action === "opened") {
     // An issue is created.
@@ -151,15 +166,24 @@ const reply: (data: any) => void = async (data) => {
         case "-assign":
           ghresp = command[1][0] == "@" &&
             await addAssignee(
-              data.issue.url,
+              data?.issue.url,
               command[1].substring(1),
             );
           ghresp = ghresp ? await addReaction(data.comment.url, "+1") : ghresp;
           console.log(ghresp);
           break;
+        // adds the specified label to the issue
         case "-addlabel":
           ghresp = await addLabel(
-            data.issue.url,
+            data?.issue.url,
+            command[1].substring(1),
+          );
+          console.log(ghresp);
+          break;
+        // requests reviews
+        case "-r":
+          ghresp = await addReviewer(
+            data.issue.pull_request.url,
             command[1].substring(1),
           );
           console.log(ghresp);
