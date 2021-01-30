@@ -1,0 +1,23 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  Formating:
+    name: check code formatting
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: setup deno
+        uses: denolib/setup-deno@v2
+      - name: Check code format
+        run: deno fmt --check
+  Linting:
+    name: check code linting
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: setup deno
+        uses: denolib/setup-deno@v2
+      - name: Check code linting
+        run: deno lint --unstable
