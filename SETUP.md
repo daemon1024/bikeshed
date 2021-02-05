@@ -3,7 +3,7 @@
 ## Getting and using the personal access token
 
 - Follow the steps given in this
-  [article](https://github.com/TheOdinProject/odin-bot-v2/pull/104) to generate
+  [article](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token) to generate
   your personal access token(Only give the `repo` permission in 7th step)
 
 - Make a file named `.env` in the root directory, and add your Access token as
