@@ -2,6 +2,33 @@
 
 Friendly neighbourhood github bot
 
+# Usage
+
+- Install [`deno`](https://deno.land/#installation)
+
+- Fork and clone the repo
+
+  ```
+  git clone https://github.com/<your-username>/bikeshed
+  ```
+
+- Move into the project folder
+
+  ```
+  cd bikeshed
+  ```
+
+- Follow our [Setup](https://github.com/daemon1024/bikeshed/blob/main/Setup.md)
+  guide to setup the bot.
+
+- Start the server
+
+  ```
+  deno run --allow-net --allow-read --allow-env mod.ts
+  ```
+
+- The server will start in PORT `8000`
+
 # TODO
 
 - ### Issues
