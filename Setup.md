@@ -22,6 +22,8 @@
 
 ## Setting up the webhook
 
+**Make sure you have atleast maintainer access to the repository you are experimenting the bot with.**
+
 - Go to your repo in which you want to setup the bot, then go to the "Settings" tab and click on "Webhooks" section on the left panel.
 
   ![Webhooks](https://user-images.githubusercontent.com/54525741/106602208-b1519600-6582-11eb-90f2-1b931aba23f0.png)
