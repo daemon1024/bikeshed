@@ -1,10 +1,14 @@
 # Setup
 
-- Getting and using the personal access token
+## Getting and using the personal access token
 
-  - Follow the steps given in this [article](https://github.com/TheOdinProject/odin-bot-v2/pull/104) to generate your personal access token(Only give the `repo` permission in 7th step)
+- Follow the steps given in this [article](https://github.com/TheOdinProject/odin-bot-v2/pull/104) to generate your personal access token(Only give the `repo` permission in 7th step)
 
-  - Make a file named `.env` in the root directory, and add your Access token as `GH_TOKEN=YourToken`. You may now proceed to the next step.
+- Make a file named `.env` in the root directory, and add your Access token as `GH_TOKEN=YourToken`. You may now proceed to the next step.
+
+## Exposing your localhost to the Internet
+
+- You can use ngrok or some other software, but for this setup we will be using `ngrok`.
 
 - Download [`ngrok`](https://dashboard.ngrok.com/get-started/setup)
 
@@ -38,4 +42,4 @@
 
 - Click on "Add webhook" button, now your bot is ready to go.
 
-- Go back to our [README Usage](https://github.com/daemon1024/bikeshed/blob/main/README.md#usage) guide on how to start the bot.
+- Go back to our README [Usage guide](https://github.com/daemon1024/bikeshed/blob/main/README.md#usage) on how to start the bot.
