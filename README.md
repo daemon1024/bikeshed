@@ -18,7 +18,7 @@ Friendly neighbourhood github bot
   cd bikeshed
   ```
 
-- Follow our [Setup](https://github.com/daemon1024/bikeshed/blob/main/Setup.md)
+- Follow our [Setup](https://github.com/daemon1024/bikeshed/blob/main/SETUP.md)
   guide to setup the bot.
 
 - Start the server
