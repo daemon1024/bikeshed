@@ -3,8 +3,9 @@
 ## Getting and using the personal access token
 
 - Follow the steps given in this
-  [article](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token) to generate
-  your personal access token(Only give the `repo` permission in 7th step)
+  [article](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token)
+  to generate your personal access token(Only give the `repo` permission in 7th
+  step)
 
 - Make a file named `.env` in the root directory, and add your Access token as
   `GH_TOKEN=YourToken`. You may now proceed to the next step.
