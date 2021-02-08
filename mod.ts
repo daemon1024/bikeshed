@@ -2,14 +2,14 @@ import { Application, Router } from "https://deno.land/x/oak/mod.ts";
 import "https://deno.land/x/dotenv/load.ts";
 
 interface config {
-  first_issue: string;
-  first_pr: string;
+  firstIssue: string;
+  firstPR: string;
   issue: string;
   pr: string;
-  claim_issue: string;
-  first_pr_merged: string;
-  pr_merged: string;
-  pr_closed: string;
+  claimIssue: string;
+  firstPrMerged: string;
+  prMerged: string;
+  prClosed: string;
 }
 
 let configs: config;
@@ -102,7 +102,7 @@ const reply: (data: any) => void = async (data) => {
     let msg: string = configs.issue;
     if (data.issue.author_association == "NONE") {
       //TODO check if previously created any issue
-      msg = configs.first_issue;
+      msg = configs.firstIssue;
     }
     // console.log(msg);
     let ghresp = await createComment(data.issue.comments_url, msg);
@@ -115,7 +115,7 @@ const reply: (data: any) => void = async (data) => {
     let msg: string = configs.pr;
     if (data.pull_request.author_association == "NONE") {
       //TODO check if previously created any PR
-      msg = configs.first_pr;
+      msg = configs.firstPR;
     }
     const ghresp = await createComment(data.pull_request.comments_url, msg);
     // console.log(ghresp);
@@ -123,16 +123,16 @@ const reply: (data: any) => void = async (data) => {
   if (data.pull_request && data.action === "closed") {
     if (data.pull_request.merged_at) {
       // A PR is merged.
-      let msg: string = configs.pr_merged;
+      let msg: string = configs.prMerged;
       if (data.pull_request.author_association == "NONE") {
-        msg = configs.first_pr_merged;
+        msg = configs.firstPrMerged;
       }
       // console.log(msg);
       const ghresp = await createComment(data.pull_request.comments_url, msg);
       // console.log(ghresp);
     } else {
       // A PR is closed.
-      const msg: string = configs.pr_closed;
+      const msg: string = configs.prClosed;
       // console.log(msg);
       const ghresp = await createComment(data.pull_request.comments_url, msg);
       // console.log(ghresp);
@@ -147,7 +147,8 @@ const reply: (data: any) => void = async (data) => {
       switch (command[0]) {
         // assigns the issue to the specified username
         case "-assign":
-          ghresp = command[1][0] == "@" &&
+          ghresp =
+            command[1][0] == "@" &&
             (await addAssignee(data?.issue.url, command[1].substring(1)));
           ghresp = ghresp ? await addReaction(data.comment.url, "+1") : ghresp;
           console.log(ghresp);
@@ -161,7 +162,7 @@ const reply: (data: any) => void = async (data) => {
         case "-r":
           ghresp = await addReviewer(
             data.issue.pull_request.url,
-            command[1].substring(1),
+            command[1].substring(1)
           );
           console.log(ghresp);
           break;
