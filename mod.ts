@@ -147,8 +147,7 @@ const reply: (data: any) => void = async (data) => {
       switch (command[0]) {
         // assigns the issue to the specified username
         case "-assign":
-          ghresp =
-            command[1][0] == "@" &&
+          ghresp = command[1][0] == "@" &&
             (await addAssignee(data?.issue.url, command[1].substring(1)));
           ghresp = ghresp ? await addReaction(data.comment.url, "+1") : ghresp;
           console.log(ghresp);
@@ -162,7 +161,7 @@ const reply: (data: any) => void = async (data) => {
         case "-r":
           ghresp = await addReviewer(
             data.issue.pull_request.url,
-            command[1].substring(1)
+            command[1].substring(1),
           );
           console.log(ghresp);
           break;
